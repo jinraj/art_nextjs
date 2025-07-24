@@ -13,7 +13,7 @@ model ArtWork {
   title       String   @unique
   description String
   images      String[]
-  dimensions  String
+  dimension   String
   medium      String
   price       Float
   artistName  String   @default("Jinraj K R")

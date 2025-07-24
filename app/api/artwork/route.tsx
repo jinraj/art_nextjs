@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
 import { createArtworkSchema, updateArtworkSchema } from "./schemaValidator";
+import path from "path";
+import { existsSync, mkdirSync } from "fs";
+import { writeFile } from "fs/promises";
 
 
 export async function GET(request: NextRequest) {
   try {
-    const data = await request.json();
-    console.log("Fetching artworks...", data);
+    console.log("Fetching artworks...");
     const artworks = await prisma.ArtWork.findMany();
     if (!artworks || artworks.length === 0) {
       return NextResponse.json({ message: "No artworks found" }, { status: 404 });
@@ -20,27 +22,30 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const data = await request.json();
-    console.log("Inserting artworks...", data);
-    if (!data.title || !data.description || !data.images || !data.artType) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
-    }
+    console.log("Inserting artwork...");
+    const formData = await request.formData();
+    const images = formData.getAll('images') as File[];
+    const artType = formData.get('artType') as string;
+    const savedImagePaths = await saveImages(images, artType);
+    const data = {
+      artType: artType,
+      title: formData.get('title') as string,
+      description: formData.get('description') as string,
+      dimension: formData.get('dimension') as string,
+      medium: formData.get('medium') as string,
+      price: parseFloat(formData.get('price') as string),
+      artistName: formData.get('artistName') as string,
+      isHidden: formData.get('isHidden') === 'on',
+      isSold: formData.get('isSold') === 'on',
+      images: savedImagePaths
+    };
 
     const validation = createArtworkSchema.safeParse(data);
     if (!validation.success) {
       return NextResponse.json({ error: validation.error.format() }, { status: 400 });
     }
 
-    const newArtwork = await prisma.ArtWork.create({
-      data: {
-        title: data.title,
-        description: data.description,
-        images: data.images,
-        artType: data.artType,
-        dimensions: data.dimensions || null,
-        price: data.price || 0,
-      },
-    });
+    const newArtwork = await prisma.ArtWork.create({ data });
 
     return NextResponse.json(newArtwork, { status: 201 });
   } catch (error) {
@@ -51,6 +56,7 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: NextRequest) {
   try {
+    console.log("Deleting artwork...");
     const { id } = await request.json();
     if (!id) {
       return NextResponse.json({ error: "Artwork ID is required" }, { status: 400 });
@@ -69,9 +75,9 @@ export async function DELETE(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
+    console.log("Updating artwork...");
     const body = await request.json();
     const validation = updateArtworkSchema.safeParse(body);
-    console.log("Validation successful:", validation);
 
     if (!validation.success) {
       return NextResponse.json({ error: validation.error.format() }, { status: 400 });
@@ -88,4 +94,24 @@ export async function PUT(request: NextRequest) {
     console.error("Error updating artwork:", error);
     return NextResponse.json({ error: "Failed to update artwork" }, { status: 500 });
   }
+}
+
+async function saveImages(images: File[], artType: string) {
+  const uploadDir = path.join(process.cwd(), "public", "resources", "images", artType.toLowerCase());
+  if (!existsSync(uploadDir)) {
+    mkdirSync(uploadDir, { recursive: true });
+  }
+  const savedImagePaths: string[] = [];
+
+  for (const image of images) {
+    if (image.name !== "") {
+      console.log(`Saving image: ${image.name}`);
+      const fileName = `${Date.now()}-${image.name}`;
+      const filePath = path.join(uploadDir, fileName);
+      await writeFile(filePath, Buffer.from(await image.arrayBuffer()));
+
+      savedImagePaths.push(`/resources/images/paintings/${fileName}`);
+    }
+  }
+  return savedImagePaths;
 }

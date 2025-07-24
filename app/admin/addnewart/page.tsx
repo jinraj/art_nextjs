@@ -2,20 +2,21 @@
 
 import React, { useState, useRef } from 'react';
 
-const types = ['Paintings', 'Photography', 'Decors', 'Artifacts'];
+const artTypes = ['Paintings', 'Photography', 'Decors', 'Artifacts'];
+const formInit = {
+  artType: '',
+  title: '',
+  description: '',
+  dimension: '',
+  medium: '',
+  price: '',
+  artistName: 'Jinraj K R',
+  isHidden: false,
+  isSold: false,
+};
 
 const AdminPage = () => {
-  const [formData, setFormData] = useState({
-    type: '',
-    title: '',
-    description: '',
-    dimensions: '',
-    medium: '',
-    price: '',
-    artistName: 'Jinraj K R',
-    isHidden: false,
-    isSold: false,
-  });
+  const [formData, setFormData] = useState(formInit);
 
   const [images, setImages] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -54,39 +55,26 @@ const AdminPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const form = e.currentTarget as HTMLFormElement;
+    const formData = new FormData(form);
+    console.log("Submitting form data...", formData);
+    // Append images manually
+    images.forEach((image) => {
+      formData.append('images', image); // Key name must match backend expectation
+    });
+
+    console.log("with images form data...", formData);
     try {
-      const body = new FormData();
-
-      // Append all fields
-      Object.entries(formData).forEach(([key, value]) => {
-        console.log(`Appending field: ${key} = ${value}`);
-        body.append(key, value.toString());
-      });
-
-      // Append images
-      images.forEach(file => body.append('images', file));
-
-      console.log(`Input body : ${body}`);
       const res = await fetch('/api/artwork', {
         method: 'POST',
-        body,
+        body: formData,
       });
 
       const result = await res.json();
       if (!res.ok) throw new Error(result.error || 'Something went wrong');
 
       alert('Artwork added successfully!');
-      setFormData({
-        type: '',
-        title: '',
-        description: '',
-        dimensions: '',
-        medium: '',
-        price: '',
-        artistName: 'Jinraj K R',
-        isHidden: false,
-        isSold: false,
-      });
+      setFormData(formInit);
       handleClearAllImages();
     } catch (err: any) {
       console.error(err);
@@ -99,6 +87,7 @@ const AdminPage = () => {
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-lg space-y-6"
+        encType="multipart/form-data"
       >
         <h2 className="text-3xl font-bold text-center mb-4 text-gray-700">Add New Art</h2>
 
@@ -106,14 +95,14 @@ const AdminPage = () => {
         <div>
           <label className="block text-gray-600 mb-2 font-semibold">Art Type</label>
           <select
-            name="type"
-            value={formData.type}
+            name="artType"
+            value={formData.artType}
             onChange={handleChange}
             className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
             required
           >
             <option value="">Select type</option>
-            {types.map(type => (
+            {artTypes.map(type => (
               <option key={type} value={type}>
                 {type}
               </option>
@@ -153,6 +142,7 @@ const AdminPage = () => {
           <input
             type="file"
             accept=".jpg,.jpeg,.png"
+            name='images'
             multiple
             onChange={handleImageChange}
             ref={fileInputRef}
@@ -193,13 +183,13 @@ const AdminPage = () => {
           )}
         </div>
 
-        {/* Dimensions */}
+        {/* Dimension */}
         <div>
-          <label className="block text-gray-600 mb-2 font-semibold">Dimensions</label>
+          <label className="block text-gray-600 mb-2 font-semibold">Dimension</label>
           <input
             type="text"
-            name="dimensions"
-            value={formData.dimensions}
+            name="dimension"
+            value={formData.dimension}
             onChange={handleChange}
             className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
             required
