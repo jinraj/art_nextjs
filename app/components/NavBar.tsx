@@ -10,8 +10,8 @@ const Navbar: React.FC = () => {
         <a href="/" className="text-gray-500 hover:text-black">Home</a>
         <a href="/paintings" className="text-gray-500 hover:text-black">Paintings</a>
         <a href="/photography" className="text-gray-500 hover:text-black">Photography</a>
+        <a href="/decors" className="text-gray-500 hover:text-black">Decors</a>
         <a href="/about" className="text-gray-500 hover:text-black">About</a>
-        <a href="/contact" className="text-gray-500 hover:text-black">Contact</a>
       </div>
     </nav>
   );
