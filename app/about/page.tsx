@@ -1,7 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
 import { FaPaintBrush, FaCamera, FaGlobeAsia } from 'react-icons/fa';
-import Image from 'next/image';
 import { FaEnvelope, FaMapMarkerAlt, FaInstagram } from 'react-icons/fa';
 import TitleLayout from '../components/TitleLayout';
 

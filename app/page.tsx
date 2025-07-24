@@ -1,30 +1,7 @@
 import React from 'react';
 import CategoryCard from './components/CategoryCard'
 import TitleLayout from './components/TitleLayout';
-
-
-const categories = [
-  {
-    id: 1,
-    label: 'Paintings',
-    images: ['/resources/images/paintings/image4_1.jpg'],
-  },
-  {
-    id: 2,
-    label: 'Photography',
-    images: ['/resources/images/photography/photo1_1.jpg'],
-  },
-  {
-    id: 3,
-    label: 'Decors',
-    images: ['/resources/images/paintings/image3_1.jpg'],
-  },
-  {
-    id: 4,
-    label: 'Artifacts',
-    images: ['/resources/images/decors/home0.jpg'],
-  }
-];
+import { categories } from './constants/meta';
 
 export default function Home() {
   return (

@@ -1,22 +1,10 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
-
-const artTypes = ['Paintings', 'Photography', 'Decors', 'Artifacts'];
-const formInit = {
-  artType: '',
-  title: '',
-  description: '',
-  dimension: '',
-  medium: '',
-  price: '',
-  artistName: 'Jinraj K R',
-  isHidden: false,
-  isSold: false,
-};
+import { artTypes, artworkFormInit } from '@/app/constants/meta';
 
 const AdminPage = () => {
-  const [formData, setFormData] = useState(formInit);
+  const [formData, setFormData] = useState(artworkFormInit);
 
   const [images, setImages] = useState<File[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -74,7 +62,7 @@ const AdminPage = () => {
       if (!res.ok) throw new Error(result.error || 'Something went wrong');
 
       alert('Artwork added successfully!');
-      setFormData(formInit);
+      setFormData(artworkFormInit);
       handleClearAllImages();
     } catch (err: any) {
       console.error(err);

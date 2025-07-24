@@ -26,7 +26,7 @@ export default function TitleLayout({ prefix = "", title, quote }: TitleLayoutPr
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 1 }}
       >
-        <p className="mt-6 px-6 sm:px-16 max-w-4xl text-lg sm:text-xl italic text-gray-600">
+        <p className="mt-8 px-6 sm:px-16 max-w-4xl text-lg sm:text-xl italic text-gray-600">
           “{quote}”
         </p>
       </motion.div>

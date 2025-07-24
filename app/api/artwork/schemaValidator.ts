@@ -1,7 +1,8 @@
 import { z } from 'zod';
+import { artTypes } from '@/app/constants/meta';
 
 export const createArtworkSchema = z.object({
-  artType: z.enum(['Paintings', 'Photography', 'Decors', 'Artifacts']),
+  artType: z.enum(artTypes),
   title: z.string().min(1, "Title is required"),
   description: z.string().min(1, "Description is required"),
   price: z.number().min(10, "Price must be at least 10"),

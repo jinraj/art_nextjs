@@ -2,14 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { FaEdit, FaTrash, FaSave, FaTimes } from "react-icons/fa";
-
-const artTypes = ['Paintings', 'Photography', 'Decors', 'Artifacts'];
+import { artTypes } from '@/app/constants/meta';
 
 const ListofArtworks = () => {
   const [artworks, setArtworks] = useState<any[]>([]);
   const [editId, setEditId] = useState<number | null>(null);
   const [editData, setEditData] = useState<any>(null);
-const cellClass = "border border-gray-200 px-2 py-2";
+  const cellClass = "border border-gray-200 px-2 py-2";
 
   // 🔄 Fetch artworks on mount
   useEffect(() => {
@@ -90,7 +89,7 @@ const cellClass = "border border-gray-200 px-2 py-2";
           <thead>
             <tr>
               {[
-                "Id", "Title", "Art Type", "Description", "Images", "Dimension (in)",
+                "Sl.No.", "Title", "Art Type", "Description", "Images", "Dimension (in)",
                 "Medium", "Price", "isHidden", "isSold", "Created", "Modified", "Actions"
               ].map((head) => (
                 <th key={head} className="border border-gray-200 px-2 py-2 text-left">{head}</th>
@@ -98,7 +97,7 @@ const cellClass = "border border-gray-200 px-2 py-2";
             </tr>
           </thead>
           <tbody>
-            {artworks.map((artwork) =>
+            {artworks.map((artwork, i) =>
               editId === artwork.id ? (
                 <tr key={artwork.id} className="bg-gray-100">
                   <td className={cellClass}>{artwork.id}</td>
@@ -128,7 +127,7 @@ const cellClass = "border border-gray-200 px-2 py-2";
                 </tr>
               ) : (
                 <tr key={artwork.id} className='border border-gray-300'>
-                  <td className={cellClass}>{artwork.id}</td>
+                  <td className={cellClass}>{i + 1}</td>
                   <td className={cellClass}>{artwork.title}</td>
                   <td className={cellClass}>{artwork.artType}</td>
                   <td className={cellClass}>{artwork.description}</td>

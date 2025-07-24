@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import artworks from './artworksData';
+import artworks from '../app/constants/artworksData';
 
 const prisma = new PrismaClient();
 

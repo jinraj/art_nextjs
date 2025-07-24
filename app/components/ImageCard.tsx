@@ -1,18 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
-
-interface ArtWork {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  images: string[];
-  artType: string;
-  medium?: string;
-  isHidden?: boolean;
-  isSold?: boolean;
-}
+import { ArtWork } from '../interfaces/artwork'
 
 interface ImageCardProps {
   listOfArtworks?: ArtWork[];

@@ -3,18 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import TitleLayout from '../components/TitleLayout';
 import ImageCard from '../components/ImageCard';
-
-interface ArtWork {
-  id: string;
-  title: string;
-  description: string;
-  price: number;
-  images: string[];
-  artType: string;
-  medium?: string;
-  isHidden?: boolean;
-  isSold?: boolean;
-}
+import { ArtWork } from '../interfaces/artwork'
+import { artType } from '../constants/meta';
 
 const Paintings = () => {
   const [paintings, setPaintings] = useState<ArtWork[]>([]);
@@ -32,7 +22,7 @@ const Paintings = () => {
         const data = await res.json();
         const artworks: ArtWork[] = Array.isArray(data) ? data : data?.artworks || [];
 
-        const filtered = artworks.filter(item => item.artType === 'Paintings');
+        const filtered = artworks.filter(item => item.artType === artType.Paintings);
         setPaintings(filtered);
       } catch (error) {
         console.error('Error fetching artworks:', error);
@@ -47,7 +37,7 @@ const Paintings = () => {
   return (
     <div>
       <TitleLayout
-        title="Paintings"
+        title={artType.Paintings}
         quote="Every art is imbued with a sense of calm and serenity. It holds a profound meaning and significance. So, feel the life in the meaningful artworks."
       />
       <div className="flex flex-col items-center py-5">
