@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
+import { createArtworkSchema, updateArtworkSchema } from "./schemaValidator";
 
 
 export async function GET(request: NextRequest) {
@@ -19,12 +20,15 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
-    // Validate required fields
     if (!data.title || !data.description || !data.images || !data.artType) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // Create new artwork
+    const validation = createArtworkSchema.safeParse(data);
+    if (!validation.success) {
+      return NextResponse.json({ error: validation.error.format() }, { status: 400 });
+    }
+
     const newArtwork = await prisma.ArtWork.create({
       data: {
         title: data.title,
@@ -50,7 +54,6 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Artwork ID is required" }, { status: 400 });
     }
 
-    // Delete artwork by ID
     const deletedArtwork = await prisma.ArtWork.delete({
       where: { id },
     });
@@ -64,17 +67,18 @@ export async function DELETE(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
-    const data = await request.json();
-    const { id, ...updateData } = data;
+    const body = await request.json();
+    const validation = updateArtworkSchema.safeParse(body);
+    console.log("Validation successful:", validation);
 
-    if (!id) {
-      return NextResponse.json({ error: "Artwork ID is required" }, { status: 400 });
+    if (!validation.success) {
+      return NextResponse.json({ error: validation.error.format() }, { status: 400 });
     }
 
-    // Update artwork by ID
-    const updatedArtwork = await prisma.ArtWork.update({
+    const { id, ...data } = validation.data;
+    const updatedArtwork = await prisma.artWork.update({
       where: { id },
-      data: updateData,
+      data,
     });
 
     return NextResponse.json(updatedArtwork, { status: 200 });
