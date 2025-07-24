@@ -106,11 +106,11 @@ async function saveImages(images: File[], artType: string) {
   for (const image of images) {
     if (image.name !== "") {
       console.log(`Saving image: ${image.name}`);
-      const fileName = `${Date.now()}-${image.name}`;
+      const fnPrefix = image.name.slice(0, 5);
+      const fileName = `${artType.toLowerCase()}-${Date.now()}-${fnPrefix}`;
       const filePath = path.join(uploadDir, fileName);
       await writeFile(filePath, Buffer.from(await image.arrayBuffer()));
-
-      savedImagePaths.push(`/resources/images/paintings/${fileName}`);
+      savedImagePaths.push(`/resources/images/${artType.toLowerCase()}/${fileName}`);
     }
   }
   return savedImagePaths;

@@ -25,10 +25,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
+  const bgGradient = [
+    "bg-gradient-to-br from-slate-100 via-slate-50 to-white"
+  ];
+  const randomGradient = bgGradient[Math.floor(Math.random() * bgGradient.length)];
   return (
     <html lang="en">
       <body
-        className={`${fontSans.variable} ${fontMono.variable} antialiased bg-gray-100`}
+        className={`${fontSans.variable} ${fontMono.variable} antialiased min-h-screen ${randomGradient}`}
       >
         <div className="px-10 pt-5 md:px-15 md:pt-7 fixed top-0 left-0 w-full z-50">
           <Navbar />
