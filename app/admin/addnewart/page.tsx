@@ -1,71 +1,150 @@
 'use client';
 
-import React, { useState, useRef } from 'react'; // Import useRef
+import React, { useState, useRef } from 'react';
 
 const types = ['Paintings', 'Photography', 'Decors', 'Artifacts'];
 
 const AdminPage = () => {
+  const [formData, setFormData] = useState({
+    type: '',
+    title: '',
+    description: '',
+    dimensions: '',
+    medium: '',
+    price: '',
+    artistName: 'Jinraj K R',
+    isHidden: false,
+    isSold: false,
+  });
+
   const [images, setImages] = useState<File[]>([]);
-  // useRef to clear the file input field
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      // Convert FileList to Array and filter for allowed image types
       const newFiles = Array.from(e.target.files).filter(file =>
         ['image/jpeg', 'image/png', 'image/jpg'].includes(file.type)
       );
-      // Append new files to existing ones
       setImages(prevImages => [...prevImages, ...newFiles]);
-      // Clear the input field to allow selecting the same file again if needed
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
+      if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
   const handleRemoveImage = (indexToRemove: number) => {
-    setImages(prevImages => prevImages.filter((_, index) => index !== indexToRemove));
-    // If all images are removed, also clear the file input
-    if (images.length === 1 && fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
+    setImages(prev => prev.filter((_, index) => index !== indexToRemove));
+    if (images.length === 1 && fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const handleClearAllImages = () => {
     setImages([]);
-    // Clear the file input field
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  };
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type, checked } = e.target;
+    console.log(`Field changed: ${e.target}`);
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const body = new FormData();
+
+      // Append all fields
+      Object.entries(formData).forEach(([key, value]) => {
+        console.log(`Appending field: ${key} = ${value}`);
+        body.append(key, value.toString());
+      });
+
+      // Append images
+      images.forEach(file => body.append('images', file));
+
+      console.log(`Input body : ${body}`);
+      const res = await fetch('/api/artwork', {
+        method: 'POST',
+        body,
+      });
+
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || 'Something went wrong');
+
+      alert('Artwork added successfully!');
+      setFormData({
+        type: '',
+        title: '',
+        description: '',
+        dimensions: '',
+        medium: '',
+        price: '',
+        artistName: 'Jinraj K R',
+        isHidden: false,
+        isSold: false,
+      });
+      handleClearAllImages();
+    } catch (err: any) {
+      console.error(err);
+      alert(err.message || 'Error submitting artwork');
     }
   };
 
   return (
     <div className="pt-25 min-h-screen flex items-center justify-center">
-      <form className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-lg space-y-6">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-lg space-y-6"
+      >
         <h2 className="text-3xl font-bold text-center mb-4 text-gray-700">Add New Art</h2>
 
         {/* Type Dropdown */}
         <div>
-          <label className="block text-gray-600 mb-2 font-semibold">Type</label>
-          <select className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300" required>
+          <label className="block text-gray-600 mb-2 font-semibold">Art Type</label>
+          <select
+            name="type"
+            value={formData.type}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            required
+          >
             <option value="">Select type</option>
             {types.map(type => (
-              <option key={type} value={type}>{type}</option>
+              <option key={type} value={type}>
+                {type}
+              </option>
             ))}
           </select>
         </div>
 
-        {/* Label */}
+        {/* Title */}
         <div>
           <label className="block text-gray-600 mb-2 font-semibold">Title</label>
-          <input type="text" className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300" required />
+          <input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            required
+          />
         </div>
 
         {/* Description */}
         <div>
           <label className="block text-gray-600 mb-2 font-semibold">Description</label>
-          <textarea className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300" rows={3} required />
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            rows={3}
+            required
+          />
         </div>
 
         {/* Image Upload */}
@@ -76,16 +155,19 @@ const AdminPage = () => {
             accept=".jpg,.jpeg,.png"
             multiple
             onChange={handleImageChange}
-            ref={fileInputRef} 
+            ref={fileInputRef}
             className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
           />
 
-          {images.length > 0 && ( // Only show image previews and cancel options if images exist
+          {images.length > 0 && (
             <div className="mt-4 border p-3 rounded-lg bg-gray-50">
               <h3 className="text-gray-700 font-semibold mb-2">Uploaded Images:</h3>
               <div className="flex flex-wrap gap-2">
                 {images.map((img, idx) => (
-                  <div key={idx} className="flex items-center bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                  <div
+                    key={idx}
+                    className="flex items-center bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm"
+                  >
                     <span className="truncate max-w-xs">{img.name}</span>
                     <button
                       type="button"
@@ -93,7 +175,7 @@ const AdminPage = () => {
                       className="ml-2 text-blue-600 hover:text-blue-900 focus:outline-none"
                       title={`Remove ${img.name}`}
                     >
-                      &times; {/* HTML entity for multiplication sign, often used for close/remove */}
+                      &times;
                     </button>
                   </div>
                 ))}
@@ -111,25 +193,88 @@ const AdminPage = () => {
           )}
         </div>
 
+        {/* Dimensions */}
+        <div>
+          <label className="block text-gray-600 mb-2 font-semibold">Dimensions</label>
+          <input
+            type="text"
+            name="dimensions"
+            value={formData.dimensions}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            required
+          />
+        </div>
+
         {/* Medium */}
         <div>
           <label className="block text-gray-600 mb-2 font-semibold">Medium</label>
-          <input type="text" className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300" required />
-        </div>
-
-        {/* Size */}
-        <div>
-          <label className="block text-gray-600 mb-2 font-semibold">Size of the Item</label>
-          <input type="text" className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300" required />
+          <input
+            type="text"
+            name="medium"
+            value={formData.medium}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            required
+          />
         </div>
 
         {/* Price */}
         <div>
           <label className="block text-gray-600 mb-2 font-semibold">Price</label>
-          <input type="number" className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300" required />
+          <input
+            type="number"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            required
+          />
         </div>
 
-        {/* Submit Button */}
+        {/* Artist Name */}
+        <div>
+          <label className="block text-gray-600 mb-2 font-semibold">Artist Name</label>
+          <input
+            type="text"
+            name="artistName"
+            value={formData.artistName}
+            onChange={handleChange}
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+          />
+        </div>
+
+        {/* Checkboxes */}
+        <div className="flex items-center space-x-4">
+          <div>
+            <input
+              type="checkbox"
+              id="isHidden"
+              name="isHidden"
+              checked={formData.isHidden}
+              onChange={handleChange}
+              className="mr-2"
+            />
+            <label htmlFor="isHidden" className="text-gray-600">
+              Hide from public
+            </label>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              id="isSold"
+              name="isSold"
+              checked={formData.isSold}
+              onChange={handleChange}
+              className="mr-2"
+            />
+            <label htmlFor="isSold" className="text-gray-600">
+              Mark as Sold
+            </label>
+          </div>
+        </div>
+
+        {/* Submit */}
         <button
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-lg font-bold hover:bg-blue-700 transition"

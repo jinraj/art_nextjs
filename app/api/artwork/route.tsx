@@ -5,7 +5,8 @@ import { createArtworkSchema, updateArtworkSchema } from "./schemaValidator";
 
 export async function GET(request: NextRequest) {
   try {
-    // Fetch all artworks
+    const data = await request.json();
+    console.log("Fetching artworks...", data);
     const artworks = await prisma.ArtWork.findMany();
     if (!artworks || artworks.length === 0) {
       return NextResponse.json({ message: "No artworks found" }, { status: 404 });
@@ -20,6 +21,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
+    console.log("Inserting artworks...", data);
     if (!data.title || !data.description || !data.images || !data.artType) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }

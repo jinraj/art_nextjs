@@ -14,6 +14,7 @@ model ArtWork {
   description String
   images      String[]
   dimensions  String
+  medium      String
   price       Float
   artistName  String   @default("Jinraj K R")
   likes       Int      @default(0)
