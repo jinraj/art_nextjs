@@ -1,14 +1,20 @@
 import React from 'react';
 
 
-interface Artwork {
-  id: number;
-  label: string;
+interface ArtWork {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
   images: string[];
+  artType: string;
+  medium?: string;
+  isHidden?: boolean;
+  isSold?: boolean;
 }
 
 interface ImageCardProps {
-  listOfArtworks?: Artwork[];
+  listOfArtworks?: ArtWork[];
   maxColumns?: number;
 }
 
@@ -32,7 +38,7 @@ export default function ImageCard({ listOfArtworks, maxColumns = 6 }: ImageCardP
               className="h-43 w-32 sm:h-50 sm:w-38 md:h-70 md:w-50 lg:h-70 lg:w-50  flex items-center justify-center bg-gray-200 bg-cover bg-center rounded-3xl"
               style={{ backgroundImage: `url('${img.images[0]}')` }}
             />
-            <span className="mt-2 text-sm text-center">{img.label}</span>
+            <span className="mt-2 text-sm text-center">{img.title}</span>
           </div>
         ))}
       </div>

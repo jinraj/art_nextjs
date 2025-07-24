@@ -9,6 +9,7 @@ const ListofArtworks = () => {
   const [artworks, setArtworks] = useState<any[]>([]);
   const [editId, setEditId] = useState<number | null>(null);
   const [editData, setEditData] = useState<any>(null);
+const cellClass = "border border-gray-200 px-2 py-2";
 
   // 🔄 Fetch artworks on mount
   useEffect(() => {
@@ -85,14 +86,14 @@ const ListofArtworks = () => {
     <div className="pt-25 min-h-screen p-8">
       <h2 className="text-3xl font-bold text-center mb-8 text-gray-700">All Artworks</h2>
       <div className="overflow-auto">
-        <table className="min-w-full bg-white shadow rounded-xl text-sm">
+        <table className="min-w-full bg-white shadow rounded-xl text-sm border border-gray-300">
           <thead>
             <tr>
               {[
                 "Id", "Title", "Art Type", "Description", "Images", "Dimension (in)",
                 "Medium", "Price", "isHidden", "isSold", "Created", "Modified", "Actions"
               ].map((head) => (
-                <th key={head} className="px-4 py-2 text-left">{head}</th>
+                <th key={head} className="border border-gray-200 px-2 py-2 text-left">{head}</th>
               ))}
             </tr>
           </thead>
@@ -100,48 +101,48 @@ const ListofArtworks = () => {
             {artworks.map((artwork) =>
               editId === artwork.id ? (
                 <tr key={artwork.id} className="bg-gray-100">
-                  <td>{artwork.id}</td>
-                  <td><input name="title" value={editData.title} onChange={handleEditChange} className="rounded px-1 py-1 w-full" /></td>
-                  <td>
+                  <td className={cellClass}>{artwork.id}</td>
+                  <td className={cellClass}><input name="title" value={editData.title} onChange={handleEditChange} className="rounded px-1 py-1 w-full" /></td>
+                  <td className={cellClass}>
                     <select name="artType" value={editData.artType} onChange={handleEditChange} className="rounded px-1 py-1 w-full">
                       {artTypes.map(type => <option key={type} value={type}>{type}</option>)}
                     </select>
                   </td>
-                  <td><textarea name="description" value={editData.description} onChange={handleEditChange} rows={2} className="rounded px-1 py-1 w-full" /></td>
-                  <td>
+                  <td className={cellClass}><textarea name="description" value={editData.description} onChange={handleEditChange} rows={2} className="rounded px-1 py-1 w-full" /></td>
+                  <td className={cellClass}>
                     {editData.images?.map((img: string, i: number) => (
                       <span key={i} className="inline-block bg-gray-200 px-2 py-1 rounded mr-1">{img}</span>
                     ))}
                   </td>
-                  <td><input name="dimension" value={editData.dimension} onChange={handleEditChange} className="rounded px-1 py-1 w-full" /></td>
-                  <td><input name="medium" value={editData.medium} onChange={handleEditChange} className="rounded px-1 py-1 w-full" /></td>
-                  <td><input name="price" type="number" value={editData.price} onChange={handleEditChange} className="rounded px-1 py-1 w-full" /></td>
-                  <td><input name="isHidden" type="checkbox" checked={editData.isHidden} onChange={handleEditChange} /></td>
-                  <td><input name="isSold" type="checkbox" checked={editData.isSold} onChange={handleEditChange} /></td>
-                  <td>{new Date(artwork.createdAt).toLocaleString()}</td>
-                  <td>{new Date().toLocaleString()}</td>
-                  <td>
+                  <td className={cellClass}><input name="dimension" value={editData.dimension} onChange={handleEditChange} className="rounded px-1 py-1 w-full" /></td>
+                  <td className={cellClass}><input name="medium" value={editData.medium} onChange={handleEditChange} className="rounded px-1 py-1 w-full" /></td>
+                  <td className={cellClass}><input name="price" type="number" value={editData.price} onChange={handleEditChange} className="rounded px-1 py-1 w-full" /></td>
+                  <td className={cellClass}><input name="isHidden" type="checkbox" checked={editData.isHidden} onChange={handleEditChange} /></td>
+                  <td className={cellClass}><input name="isSold" type="checkbox" checked={editData.isSold} onChange={handleEditChange} /></td>
+                  <td className={cellClass}>{new Date(artwork.createdAt).toLocaleString()}</td>
+                  <td className={cellClass}>{new Date().toLocaleString()}</td>
+                  <td className={cellClass}>
                     <button className="text-gray-400 hover:text-gray-700 mr-2" title="Cancel" onClick={() => setEditId(null)}><FaTimes /></button>
                     <button className="text-green-500 hover:text-green-700" title="Save" onClick={handleEditSubmit}><FaSave /></button>
                   </td>
                 </tr>
               ) : (
-                <tr key={artwork.id}>
-                  <td>{artwork.id}</td>
-                  <td>{artwork.title}</td>
-                  <td>{artwork.artType}</td>
-                  <td>{artwork.description}</td>
-                  <td>{artwork.images?.map((img: string, i: number) => (
-                    <span key={i} className="inline-block bg-gray-200 px-2 py-1 rounded mr-1">{img}</span>
+                <tr key={artwork.id} className='border border-gray-300'>
+                  <td className={cellClass}>{artwork.id}</td>
+                  <td className={cellClass}>{artwork.title}</td>
+                  <td className={cellClass}>{artwork.artType}</td>
+                  <td className={cellClass}>{artwork.description}</td>
+                  <td className={cellClass}>{artwork.images?.map((img: string, i: number) => (
+                    <span key={i} className="inline-block bg-gray-200 px-2 py-1 rounded mr-1 mb-2">{img}</span>
                   ))}</td>
-                  <td>{artwork.dimension}</td>
-                  <td>{artwork.medium}</td>
-                  <td>₹{artwork.price}</td>
-                  <td>{artwork.isHidden ? 'Yes' : 'No'}</td>
-                  <td>{artwork.isSold ? 'Yes' : 'No'}</td>
-                  <td>{new Date(artwork.createdAt).toLocaleString()}</td>
-                  <td>{new Date(artwork.updatedAt).toLocaleString()}</td>
-                  <td>
+                  <td className={cellClass}>{artwork.dimension}</td>
+                  <td className={cellClass}>{artwork.medium}</td>
+                  <td className={cellClass}>₹{artwork.price}</td>
+                  <td className={cellClass}>{artwork.isHidden ? 'Yes' : 'No'}</td>
+                  <td className={cellClass}>{artwork.isSold ? 'Yes' : 'No'}</td>
+                  <td className={cellClass}>{new Date(artwork.createdAt).toLocaleString()}</td>
+                  <td className={cellClass}>{new Date(artwork.updatedAt).toLocaleString()}</td>
+                  <td className={cellClass}>
                     <button className="text-blue-500 hover:text-blue-700 mr-2" onClick={() => handleEdit(artwork)} title="Edit"><FaEdit /></button>
                     <button className="text-red-500 hover:text-red-700" onClick={() => handleDelete(artwork.id)} title="Delete"><FaTrash /></button>
                   </td>
