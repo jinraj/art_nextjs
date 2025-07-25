@@ -3,14 +3,22 @@
 import React, { useEffect, useState } from 'react';
 import { FaEdit, FaTrash, FaSave, FaTimes } from "react-icons/fa";
 import { artTypes } from '@/app/constants/meta';
+import { useSession } from 'next-auth/react';
 
 const ListofArtworks = () => {
+  const { data: session } = useSession();
+  console.log("Session Data:", session);
+
+  // const sessionD = await getServerSession(authOptions);
+  // if (!sessionD) {
+  //   return new Response("Unauthorized", { status: 401 });
+  // }
+
   const [artworks, setArtworks] = useState<any[]>([]);
   const [editId, setEditId] = useState<number | null>(null);
   const [editData, setEditData] = useState<any>(null);
   const cellClass = "border border-gray-200 px-2 py-2";
 
-  // 🔄 Fetch artworks on mount
   useEffect(() => {
     const fetchArtworks = async () => {
       try {

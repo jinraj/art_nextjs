@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
+import { set } from 'zod';
 
 const LoginPage = () => {
     const [step, setStep] = useState<'login' | 'code'>('login');
@@ -15,18 +17,29 @@ const LoginPage = () => {
     // Simulate backend authentication and code sending
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        // Replace with real authentication logic
-        if (email === "admin@gmail.com" && password === "admin") {
-            // Generate random 4-digit code
-            const generatedCode = Math.floor(1000 + Math.random() * 9000).toString();
-            setServerCode(generatedCode);
-            // TODO: Send code to user's email via backend API
-            alert(`Access code sent to ${email}: ${generatedCode}`); // Replace with real email sending
-            setStep('code');
-            setError('');
-        } else {
+        const res = await signIn("domain-login", {
+            redirect: true,
+            email,
+            password,
+            callbackUrl: '/admin/addnewart'
+        });
+
+        if (!res?.ok) {
             setError('Invalid email or password');
         }
+        
+        // Replace with real authentication logic
+        // if (email === "admin@gmail.com" && password === "admin") {
+        //     // Generate random 4-digit code
+        //     const generatedCode = Math.floor(1000 + Math.random() * 9000).toString();
+        //     setServerCode(generatedCode);
+        //     // TODO: Send code to user's email via backend API
+        //     alert(`Access code sent to ${email}: ${generatedCode}`); // Replace with real email sending
+        //     setStep('code');
+        //     setError('');
+        // } else {
+        //     setError('Invalid email or password');
+        // }
     };
 
     const handleCodeSubmit = (e: React.FormEvent) => {
@@ -34,7 +47,7 @@ const LoginPage = () => {
         if (code === serverCode) {
             alert('Authentication successful!');
             // Redirect or set authenticated state here
-            router.push('/admin');
+            router.push('/admin/listofartworks');
         } else {
             setError('Invalid access code');
         }

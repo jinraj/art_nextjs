@@ -4,11 +4,14 @@ import { createArtworkSchema, updateArtworkSchema } from "./schemaValidator";
 import path from "path";
 import { existsSync, mkdirSync } from "fs";
 import { writeFile } from "fs/promises";
-
+import { authenticateAdminRequest, authenticateRequest } from "@/app/auth/auth";
 
 export async function GET(request: NextRequest) {
   try {
     console.log("Fetching artworks...");
+    const authError = authenticateRequest(request);
+    if (authError) return authError;
+
     const artworks = await prisma.ArtWork.findMany();
     if (!artworks || artworks.length === 0) {
       return NextResponse.json({ message: "No artworks found" }, { status: 404 });
@@ -23,6 +26,9 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     console.log("Inserting artwork...");
+    const session = await authenticateAdminRequest(request);
+    if (session instanceof NextResponse) return session;
+
     const formData = await request.formData();
     const images = formData.getAll('images') as File[];
     const artType = formData.get('artType') as string;
@@ -57,6 +63,9 @@ export async function POST(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   try {
     console.log("Deleting artwork...");
+    const session = await authenticateAdminRequest(request);
+    if (session instanceof NextResponse) return session;
+
     const { id } = await request.json();
     if (!id) {
       return NextResponse.json({ error: "Artwork ID is required" }, { status: 400 });
@@ -76,6 +85,9 @@ export async function DELETE(request: NextRequest) {
 export async function PUT(request: NextRequest) {
   try {
     console.log("Updating artwork...");
+    const session = await authenticateAdminRequest(request);
+    if (session instanceof NextResponse) return session;
+
     const body = await request.json();
     const validation = updateArtworkSchema.safeParse(body);
 
