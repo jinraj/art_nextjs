@@ -76,6 +76,7 @@ const ListofArtworks = () => {
       ));
       setEditId(null);
       setEditData(null);
+      alert("Update successful");
     } catch (err) {
       alert("Failed to update artwork");
     }

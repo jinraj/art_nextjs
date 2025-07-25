@@ -2,9 +2,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from "@/prisma/client";
 
+type Context = {
+  params: {
+    id: string;
+  };
+};
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
-  const { id } = params;
+export async function PUT(req: NextRequest, context: Context) {
+  const { id } = context.params;
 
   try {
     const updated = await prisma.ArtWork.update({

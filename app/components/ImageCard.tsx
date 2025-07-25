@@ -34,7 +34,7 @@ export default function ImageCard({ listOfArtworks, maxColumns = 6 }: ImageCardP
         lg:grid-cols-4
         xl:grid-cols-6
         gap-4 `}>
-        {listOfArtworks.map((img, i) => (
+        {listOfArtworks.filter((img) => !img.isHidden).map((img, i) => (
           <motion.div
             key={img.id + i}
             className="flex flex-col items-center cursor-pointer"

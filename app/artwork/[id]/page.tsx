@@ -15,6 +15,10 @@ export default function PreviewArtworkPage() {
     const [likes, setLikes] = useState<number>(0);
 
     useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+    }, []);
+
+    useEffect(() => {
         if (!id) return;
 
         const stored = localStorage.getItem('selectedArtwork');
@@ -35,7 +39,7 @@ export default function PreviewArtworkPage() {
         console.log(`Liking artwork with ID: ${id}`);
         if (liked) return;
         try {
-             const res = await fetch(`/api/artwork/${id}/like`, {
+            const res = await fetch(`/api/artwork/${id}/like`, {
                 method: 'PUT'
             });
             const data = await res.json();
