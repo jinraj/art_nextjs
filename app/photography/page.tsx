@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import TitleLayout from '../components/TitleLayout';
 import ImageCard from '../components/ImageCard';
 import { ArtWork } from '../interfaces/artwork'
-import { artType } from '../constants/meta';
+import { artType, quotes } from '../constants/meta';
 
 const Photography = () => {
   const [paintings, setPaintings] = useState<ArtWork[]>([]);
@@ -22,7 +22,7 @@ const Photography = () => {
         const data = await res.json();
         const artworks: ArtWork[] = Array.isArray(data) ? data : data?.artworks || [];
 
-        const filtered = artworks.filter(item => item.artType === artType.Photography);
+        const filtered = artworks.filter(item => item.artType === artType.Photography.name);
         setPaintings(filtered);
       } catch (error) {
         console.error('Error fetching artworks:', error);
@@ -37,8 +37,8 @@ const Photography = () => {
   return (
     <div>
       <TitleLayout
-        title={artType.Photography}
-        quote="Every art is imbued with a sense of calm and serenity. It holds a profound meaning and significance. So, feel the life in the meaningful artworks."
+        title={artType.Photography.name}
+        quote={artType.Photography.quotes[Math.floor(Math.random() * artType.Photography.quotes.length)]}
       />
       <div className="flex flex-col items-center py-5">
         {loading ? (

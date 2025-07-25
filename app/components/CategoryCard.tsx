@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArtWork } from '../interfaces/artwork'
+import { useRouter } from 'next/navigation';
 
 interface ImageCardProps {
   listOfArtworks?: ArtWork[];
@@ -10,6 +11,7 @@ interface ImageCardProps {
 }
 
 export default function ImageCard({ listOfArtworks, maxColumns = 6 }: ImageCardProps) {
+  const router = useRouter();
   if (!listOfArtworks || listOfArtworks.length === 0) {
     return <div className="text-center text-gray-500">No artworks available</div>;
   }
@@ -39,6 +41,7 @@ export default function ImageCard({ listOfArtworks, maxColumns = 6 }: ImageCardP
           <motion.div
             key={img.id + i}
             className="flex flex-col items-center cursor-pointer"
+            onClick={() => router.push(`/${img.title.toLowerCase()}`)}
             variants={cardVariants}
             initial="hidden"
             animate="visible"

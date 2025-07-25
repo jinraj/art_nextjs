@@ -22,7 +22,7 @@ const Decors = () => {
         const data = await res.json();
         const artworks: ArtWork[] = Array.isArray(data) ? data : data?.artworks || [];
 
-        const filtered = artworks.filter(item => item.artType === artType.Decors);
+        const filtered = artworks.filter(item => item.artType === artType.Decors.name);
         setPaintings(filtered);
       } catch (error) {
         console.error('Error fetching artworks:', error);
@@ -37,8 +37,8 @@ const Decors = () => {
   return (
     <div>
       <TitleLayout
-        title={artType.Decors}
-        quote="Every art is imbued with a sense of calm and serenity. It holds a profound meaning and significance. So, feel the life in the meaningful artworks."
+        title={artType.Decors.name}
+        quote={artType.Decors.quotes[Math.floor(Math.random() * artType.Decors.quotes.length)]}
       />
       <div className="flex flex-col items-center py-5">
         {loading ? (

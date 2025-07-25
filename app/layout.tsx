@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
 
   const bgGradient = [
-    "bg-gradient-to-br from-slate-100 via-slate-50 to-white"
+    "bg-gradient-to-br from-orange-50 via-slate-100 to-white"
   ];
   const randomGradient = bgGradient[Math.floor(Math.random() * bgGradient.length)];
   return (
