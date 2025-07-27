@@ -3,29 +3,46 @@
 import React, { useEffect, useState } from 'react';
 import TitleLayout from '../components/TitleLayout';
 import ImageCard from '../components/ImageCard';
-import { ArtWork } from '../interfaces/artwork'
+import { ArtWork } from '../interfaces/artwork';
 import { artType } from '../constants/meta';
 
 const Paintings = () => {
   const [paintings, setPaintings] = useState<ArtWork[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [randomQuote, setRandomQuote] = useState<string | null>(null);
+
+  useEffect(() => {
+    // This effect runs only on the client after initial mount (hydration)
+    const quotes = artType.Paintings.quotes;
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    setRandomQuote(quotes[randomIndex]);
+  }, []); // Empty dependency array ensures it runs once on mount
 
   useEffect(() => {
     const fetchArtworks = async () => {
       try {
+        setLoading(true);
         const res = await fetch('/api/artwork', {
           method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
 
-        if (!res.ok) throw new Error('Failed to fetch artworks');
+        if (!res.ok) {
+          const errorText = await res.text();
+          throw new Error(`Failed to fetch artworks: ${res.status} ${errorText}`);
+        }
 
         const data = await res.json();
         const artworks: ArtWork[] = Array.isArray(data) ? data : data?.artworks || [];
 
         const filtered = artworks.filter(item => item.artType === artType.Paintings.name);
         setPaintings(filtered);
-      } catch (error) {
-        console.error('Error fetching artworks:', error);
+      } catch (err) {
+        console.error('Error fetching artworks:', err);
+        setError((err as Error).message);
       } finally {
         setLoading(false);
       }
@@ -35,14 +52,18 @@ const Paintings = () => {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen">
       <TitleLayout
         title={artType.Paintings.name}
-        quote={artType.Paintings.quotes[Math.floor(Math.random() * artType.Paintings.quotes.length)]}
+        quote={randomQuote || artType.Paintings.quotes[0]}
       />
       <div className="flex flex-col items-center py-5">
         {loading ? (
-          <p>Loading...</p>
+          <p className="text-gray-500">Loading...</p>
+        ) : error ? (
+          <p className="text-red-500">Error loading: {error}</p>
+        ) : paintings.length === 0 ? (
+          <p className="text-gray-500">No paintings available.</p>
         ) : (
           <ImageCard listOfArtworks={paintings} />
         )}

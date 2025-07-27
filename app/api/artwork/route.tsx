@@ -9,8 +9,8 @@ import { authenticateAdminRequest, authenticateRequest } from "@/app/auth/auth";
 export async function GET(request: NextRequest) {
   try {
     console.log("Fetching artworks...");
-    const authError = authenticateRequest(request);
-    if (authError) return authError;
+    // const authError = authenticateRequest(request);
+    // if (authError) return authError;
 
     const artworks = await prisma.ArtWork.findMany();
     if (!artworks || artworks.length === 0) {
