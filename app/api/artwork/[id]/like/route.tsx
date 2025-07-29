@@ -3,12 +3,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from "@/prisma/client";
 import { authenticateRequest } from '@/app/auth/auth';
 
-type Context = {
-  params: {
-    id: string;
-  };
-};
-
 // Basic in-memory rate limiter
 const ipLikeMap = new Map<string, Set<string>>();
 const requestLog: Map<string, number[]> = new Map();

@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
+import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa'; // Import star icons
 
 interface TitleLayoutProps {
   prefix: string;
@@ -9,16 +10,17 @@ interface TitleLayoutProps {
 }
 
 export default function TitleLayout({ prefix = "", title, quote }: TitleLayoutProps) {
+
   return (
-    <div className="py-8 pt-20 h-72 sm:h-96 bg-cover bg-center flex flex-col items-center justify-center text-center">
+    <div className="py-8 pt-30 h-72 sm:h-96 bg-cover bg-center flex flex-col items-center justify-center text-center">
       <motion.div
         id="title"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <span className="text-3xl sm:text-5xl italic text-gray-700 mr-2">{prefix}</span>
-        <span className="text-5xl sm:text-7xl font-extrabold text-gray-900">{title}</span>
+        <span className="text-3xl sm:text-5xl italic text-gray-600 mr-2">{prefix} </span>
+        <span className="text-5xl sm:text-7xl font-bold text-gray-900">{title}</span>
       </motion.div>
 
       <motion.div
@@ -26,9 +28,10 @@ export default function TitleLayout({ prefix = "", title, quote }: TitleLayoutPr
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 1 }}
       >
-        <p className="mt-8 px-6 sm:px-16 max-w-4xl text-lg sm:text-xl italic text-gray-600">
+        <p className="mt-8 px-4 max-w-4xl text-lg sm:text-lg text-gray-500 font-normal italic">
           “{quote}”
         </p>
+
       </motion.div>
     </div>
   );

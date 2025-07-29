@@ -1,118 +1,129 @@
 'use client';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { FaPaintBrush, FaCamera, FaGlobeAsia } from 'react-icons/fa';
 import { FaEnvelope, FaMapMarkerAlt, FaInstagram } from 'react-icons/fa';
 import TitleLayout from '../components/TitleLayout';
 
 const About = () => {
+  // Framer Motion variants for staggered appearance
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+  };
+
   return (
-    <div className="min-h-screen px-6 py-12">
-      <TitleLayout
-        prefix="Hi, I'm "
-        title="Jinraj Jain"
-        quote="A passionate artist, tech-savvy creator, and wanderer—crafting meaningful visuals and stories through paintings, pixels, and moments."
-      />
+    <div className="min-h-screen text-gray-800">
+        <TitleLayout
+          prefix="Hi, I'm "
+          title="Jinraj Jain"
+          quote="A passionate artist, tech-savvy creator, and wanderer—crafting meaningful visuals and stories through paintings, pixels, and moments."
+        />
 
-      {/* Timeline / Journey */}
-      <div className="mb-20">
-        <h2 className="text-3xl font-semibold text-center mb-10">My Journey</h2>
-        <div className="space-y-6 max-w-2xl mx-auto">
-          {[
-            { year: '2010', text: 'Discovered my love for art and painting at a small local gallery.' },
-            { year: '2015', text: 'Graduated in Computer Science. Began blending art with tech.' },
-            { year: '2020', text: 'Started exhibiting my artworks and building an online presence.' },
-            { year: '2024', text: 'Launched my own brand and took my art global.' },
-          ].map((item, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.2 }}
-              className="bg-white border-l-4 border-blue-400 pl-4 py-4 shadow-sm rounded"
-            >
-              <h3 className="text-blue-600 font-semibold">{item.year}</h3>
-              <p className="text-gray-700">{item.text}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-300 to-transparent max-w-xl mx-auto"></div>
 
-      {/* Skills / Mediums */}
-      <div className="mb-20">
-        <h2 className="text-3xl font-semibold text-center mb-10">What I Love</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+      {/* About Me Story Section */}
+      <motion.section
+        className=" md:py-20 px-6 max-w-4xl mx-auto text-center"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={containerVariants}
+      >
+        <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl font-extrabold mb-8 leading-tight">
+          My Journey & Philosophy
+        </motion.h2>
+        <motion.p variants={itemVariants} className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+          I believe art is a conversation, a bridge between the unseen and the tangible. My work spans from the tactile strokes of acrylic on canvas to the intricate dance of pixels in digital creations. Each piece is a reflection of my curiosity, my travels, and the stories I encounter.
+        </motion.p>
+        <motion.p variants={itemVariants} className="text-lg md:text-xl text-gray-700 leading-relaxed">
+          Driven by a desire to explore and innovate, I constantly seek new mediums and perspectives. Whether it's capturing a fleeting moment through a lens or building immersive digital experiences, my goal remains the same: to create something that resonates, inspires, and invites connection.
+        </motion.p>
+      </motion.section>
+
+      {/* What I Love / Expertise Section - UPDATED BACKGROUND AND TEXT COLORS */}
+      <motion.section
+        className="py-20 mx-20 rounded-3xl md:py-28 px-6 bg-gray-800 text-white" // Background color and default text color set here
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={containerVariants}
+      >
+        <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl font-extrabold text-center mb-16 leading-tight">
+          What Ignites My Passion
+        </motion.h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {[
             {
-              icon: <FaPaintBrush size={32} />,
+              icon: <FaPaintBrush size={36} />,
               title: 'Acrylic Portraits',
-              desc: 'Capturing emotion and soul on canvas with vibrant colors.',
+              desc: 'Capturing emotion and soul on canvas with vibrant colors and expressive brushwork, bringing stories to life.',
             },
             {
-              icon: <FaCamera size={32} />,
+              icon: <FaCamera size={36} />,
               title: 'Videography & Editing',
-              desc: 'Telling stories with motion and rhythm.',
+              desc: 'Crafting compelling narratives through dynamic visuals and precise editing, transforming raw footage into captivating stories.',
             },
             {
-              icon: <FaGlobeAsia size={32} />,
+              icon: <FaGlobeAsia size={36} />,
               title: 'Travel & Culture',
-              desc: 'Inspiration from people, places, and traditions.',
+              desc: 'Drawing profound inspiration from diverse cultures and breathtaking landscapes, enriching my artistic perspective.',
             },
           ].map((skill, idx) => (
             <motion.div
               key={idx}
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: 'spring', stiffness: 200 }}
-              className="bg-gradient-to-br from-slate-100 via-slate-50 to-white rounded-2xl shadow-lg p-6 text-center"
+              variants={itemVariants}
+              whileHover={{ y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.2)' }} // Adjusted shadow for dark background
+              transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+              className="rounded-2xl p-8 text-left" // Card background & border adjusted for dark theme
             >
-              <div className="text-rose-300 mb-4">{skill.icon}</div>
-              <h4 className="font-semibold text-lg">{skill.title}</h4>
-              <p className="text-gray-600 mt-2">{skill.desc}</p>
+              <div className="text-white mb-6">{skill.icon}</div> {/* Icon color adjusted for dark background */}
+              <h4 className="font-bold text-2xl mb-3 text-white">{skill.title}</h4> {/* Explicitly set text-white */}
+              <p className="text-gray-300 leading-relaxed">{skill.desc}</p> {/* Adjusted text for readability */}
             </motion.div>
           ))}
         </div>
-      </div>
+      </motion.section>
 
+      {/* Contact Section */}
+      <motion.section
+        className="py-20 md:py-28 px-6"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={containerVariants}
+      >
+        <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl font-extrabold text-center mb-16 leading-tight">
+          Let’s Connect
+        </motion.h2>
 
-      {/* Contact */}
-      <div className="min-h-screen px-6 py-12 rounded-4xl  bg-slate-200">
-        {/* Header Section */}
-        <div className="text-center mb-16">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-4xl md:text-5xl font-bold text-gray-800"
-          >
-            Let’s Talk
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="mt-4 text-gray-600 text-lg max-w-xl mx-auto"
-          >
-            Have a question, collaboration idea, or just want to say hi? I'm always open to meaningful conversations.
-          </motion.p>
-        </div>
-
-        {/* Contact Cards */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-16">
+        {/* Contact Details - More minimalist, less card-like */}
+        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
           {[
             {
-              icon: <FaEnvelope size={24} />,
+              icon: <FaEnvelope size={28} />,
               title: 'Email',
               value: 'jinrajjain@example.com',
               href: 'mailto:jinrajjain@example.com',
             },
             {
-              icon: <FaMapMarkerAlt size={24} />,
+              icon: <FaMapMarkerAlt size={28} />,
               title: 'Location',
               value: 'Bangalore, India',
-              href: '',
+              href: '#',
             },
             {
-              icon: <FaInstagram size={24} />,
+              icon: <FaInstagram size={28} />,
               title: 'Instagram',
               value: '@art.by.jinraj',
               href: 'https://instagram.com/art.by.jinraj',
@@ -121,79 +132,72 @@ const About = () => {
             <motion.a
               key={idx}
               href={card.href}
-              target="_blank"
+              target={card.href !== '#' ? "_blank" : "_self"}
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.05 }}
-              className="bg-gradient-to-br from-slate-100 via-slate-50 to-white
-
- p-6 rounded-2xl shadow-md flex flex-col items-center text-center hover:shadow-xl transition"
+              variants={itemVariants}
+              whileHover={{ y: -5, color: '#4F46E5' }}
+              transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+              className="flex flex-col items-center text-center p-6 rounded-xl group"
             >
-              <div className="text-green-700 mb-3">{card.icon}</div>
-              <h4 className="font-semibold text-lg mb-1">{card.title}</h4>
-              <p className="text-gray-600">{card.value}</p>
+              <div className="text-gray-500 mb-4 transition-colors duration-200 group-hover:text-indigo-600">{card.icon}</div>
+              <h4 className="font-semibold text-xl mb-1">{card.title}</h4>
+              <p className="text-gray-600 text-lg">{card.value}</p>
             </motion.a>
           ))}
         </div>
 
         {/* Contact Form */}
-        <div className="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <div className="max-w-3xl mx-auto bg-gray-50 p-8 sm:p-10 rounded-2xl shadow-lg border border-gray-200">
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              alert("Message sent! (Hook to backend here)");
+              console.log("Message sent! (Hook to backend here)");
             }}
-            className="space-y-6"
+            className="space-y-8"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4 }}
-            >
-              <label className="block text-sm font-medium text-gray-700">Name</label>
+            <motion.div variants={itemVariants}>
+              <label htmlFor="name" className="block text-lg font-medium text-gray-700 mb-2">Name</label>
               <input
                 type="text"
+                id="name"
                 required
-                className="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="mt-1 w-full border-b border-gray-300 focus:border-indigo-500 focus:ring-0 px-0 py-2 bg-transparent text-lg placeholder-gray-500 focus:outline-none"
+                placeholder="Your Name"
               />
             </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-            >
-              <label className="block text-sm font-medium text-gray-700">Email</label>
+            <motion.div variants={itemVariants}>
+              <label htmlFor="email" className="block text-lg font-medium text-gray-700 mb-2">Email</label>
               <input
                 type="email"
+                id="email"
                 required
-                className="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="mt-1 w-full border-b border-gray-300 focus:border-indigo-500 focus:ring-0 px-0 py-2 bg-transparent text-lg placeholder-gray-500 focus:outline-none"
+                placeholder="you@example.com"
               />
             </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.4 }}
-            >
-              <label className="block text-sm font-medium text-gray-700">Message</label>
+            <motion.div variants={itemVariants}>
+              <label htmlFor="message" className="block text-lg font-medium text-gray-700 mb-2">Message</label>
               <textarea
-                rows={4}
+                id="message"
+                rows={5}
                 required
-                className="mt-1 w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="mt-1 w-full border-b border-gray-300 focus:border-indigo-500 focus:ring-0 px-0 py-2 bg-transparent text-lg placeholder-gray-500 focus:outline-none resize-y"
+                placeholder="Your message here..."
               />
             </motion.div>
 
             <motion.button
-              whileHover={{ scale: 1.05 }}
+              type="submit"
+              whileHover={{ scale: 1.02, backgroundColor: '#4F46E5' }}
               whileTap={{ scale: 0.98 }}
-              className="bg-blue-500 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-600 transition"
+              variants={itemVariants}
+              className="w-full sm:w-auto bg-indigo-600 text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-indigo-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Send Message
             </motion.button>
           </form>
         </div>
-      </div>
+      </motion.section>
     </div>
   );
 };

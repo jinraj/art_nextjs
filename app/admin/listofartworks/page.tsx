@@ -9,11 +9,6 @@ const ListofArtworks = () => {
   const { data: session } = useSession();
   console.log("Session Data:", session);
 
-  // const sessionD = await getServerSession(authOptions);
-  // if (!sessionD) {
-  //   return new Response("Unauthorized", { status: 401 });
-  // }
-
   const [artworks, setArtworks] = useState<any[]>([]);
   const [editId, setEditId] = useState<number | null>(null);
   const [editData, setEditData] = useState<any>(null);

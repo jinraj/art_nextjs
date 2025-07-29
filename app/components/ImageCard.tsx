@@ -38,12 +38,12 @@ export default function ImageCard({ listOfArtworks }: ImageCardProps) {
           sm:grid-cols-3
           md:grid-cols-3
           lg:grid-cols-4
-          xl:grid-cols-6
+          xl:grid-cols-5
           gap-4 `}>
           {listOfArtworks.filter((img) => !img.isHidden).map((img, i) => (
             <motion.div
               key={img.id + i}
-              className="flex flex-col items-center cursor-pointer"
+              className="flex flex-col cursor-pointer"
               variants={cardVariants}
               onClick={() => {
                 setSelectedArtwork(img);
@@ -55,10 +55,14 @@ export default function ImageCard({ listOfArtworks }: ImageCardProps) {
               transition={{ type: 'spring', stiffness: 200, damping: 20 }}
             >
               <div
-                className="h-43 w-32 sm:h-50 sm:w-38 md:h-70 md:w-50 lg:h-70 lg:w-50  flex items-center justify-center bg-gray-200 bg-cover bg-center rounded-3xl"
+                className="h-60 w-45 sm:h-50 sm:w-38 md:h-70 md:w-50 lg:h-90 lg:w-70  flex items-center justify-center bg-gray-200 bg-cover bg-center rounded-2xl"
                 style={{ backgroundImage: `url('${img.images[0]}')` }}
               />
-              <span className="mt-2 text-sm text-center">{img.title}</span>
+              {/* <span className="mt-2 px-2 text-sm">{img.title}</span> */}
+              <div className="mt-2 px-2 flex justify-between items-center text-sm">
+                <span className="text-gray-600 font-medium">{img.title}</span>
+                <span className="text-gray-400 font-medium">INR.{img.price}</span>
+              </div>
             </motion.div>
           ))}
         </div>

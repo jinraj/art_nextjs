@@ -97,7 +97,7 @@ export default function PreviewArtworkPage({ artwork, onClose }: PreviewArtworkP
   }
 
   return (
-    <div className="relative max-w-7xl mx-auto p-6 mt-0 rounded-2xl border-1 border-gray-300">
+    <div className="relative max-w-7xl mx-auto mt-0 rounded-2xl">
       <button
         onClick={onClose}
         className="absolute top-4 right-4 z-50 p-2 rounded-full bg-gray-200 hover:bg-gray-300 shadow-md"
@@ -142,39 +142,48 @@ export default function PreviewArtworkPage({ artwork, onClose }: PreviewArtworkP
           id="artDetails"
           className="w-full lg:w-[35%] space-y-6 bg-white/5 rounded-xl p-6 relative"
         >
-          <h1 className="text-3xl font-bold">{artwork.title}</h1>
-          <p className="text-gray-600">{artwork.description}</p>
+          <div className="space-y-2">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900">{artwork.title}</h1>
+            <p className="text-md text-gray-600 leading-relaxed">{artwork.description}</p>
+            
+            <div>
+              <span className="text-gray-800 font-medium text-sm px-2 py-1 rounded-2xl bg-gray-600 text-white">INR {artwork.price}.00</span>
+            </div>
+          </div>
 
-          <div className="grid grid-cols-2 gap-4 text-sm text-gray-700 mt-4">
+          <div className="grid grid-cols-2 gap-4 text-sm border border-gray-200 rounded-xl p-3">
             <div>
-              <span className="font-semibold">Dimensions:</span>
-              <br />
-              {artwork.dimension}
+              <span className="text-gray-500">Dimensions</span>
+              <p className="text-gray-800 font-medium">{artwork.dimension}</p>
             </div>
             <div>
-              <span className="font-semibold">Medium:</span>
-              <br />
-              {artwork.medium}
+              <span className="text-gray-500">Medium</span>
+              <p className="text-gray-800 font-medium">{artwork.medium}</p>
             </div>
             <div>
-              <span className="font-semibold">Artist:</span>
-              <br />
-              {artwork.artistName}
+              <span className="text-gray-500">Artist</span>
+              <p className="text-gray-800 font-medium">{artwork.artistName}</p>
+            </div>
+            <div>
+              <span className="text-gray-500">Sold</span>
+              <p className="text-gray-800 font-medium">{artwork.isSold}</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               onClick={handleToggleLike}
-              className={`p-2 rounded-full ${isLikedByUser ? 'bg-red-500' : 'bg-gray-700'}`}
+              className={`p-2 rounded-full transition ${isLikedByUser ? 'bg-red-500' : 'bg-gray-700'}`}
               title={isLikedByUser ? 'Unlike this artwork' : 'Like this artwork'}
             >
               <Heart className="text-white w-5 h-5" fill={isLikedByUser ? 'white' : 'none'} />
             </button>
-            <span className="text-gray-700">
+            <span className="text-gray-700 text-sm">
               {currentLikesCount} {currentLikesCount === 1 ? 'Like' : 'Likes'}
             </span>
           </div>
+
+
         </div>
       </motion.div>
     </div>
