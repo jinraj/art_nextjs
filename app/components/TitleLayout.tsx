@@ -1,10 +1,9 @@
 'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa'; // Import star icons
 
 interface TitleLayoutProps {
-  prefix: string;
+  prefix?: string;
   title: string;
   quote: string;
 }

@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, easeOut } from 'framer-motion';
 import { FaPaintBrush, FaCamera, FaGlobeAsia } from 'react-icons/fa';
 import { FaEnvelope, FaMapMarkerAlt, FaInstagram } from 'react-icons/fa';
 import TitleLayout from '../components/TitleLayout';
@@ -18,7 +18,7 @@ const About = () => {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeOut } },
   };
 
   return (

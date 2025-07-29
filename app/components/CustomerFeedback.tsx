@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, easeOut } from 'framer-motion';
 import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
 
 interface Feedback {
@@ -46,7 +46,7 @@ export default function CustomerFeedbackSection({ overallRating, totalReviews, f
       y: 0,
       transition: {
         duration: 0.5,
-        ease: 'easeOut',
+        ease: easeOut,
         when: 'beforeChildren',
         staggerChildren: 0.2,
       },
@@ -55,7 +55,7 @@ export default function CustomerFeedbackSection({ overallRating, totalReviews, f
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeOut } },
   };
 
   return (

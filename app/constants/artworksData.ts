@@ -1,7 +1,8 @@
+import { ArtType } from "@prisma/client";
 
 export default [
     {
-        artType: "Paintings",
+        artType: ArtType.Paintings,
         title: 'Image 1',
         description: 'Image description',
         images: [
@@ -18,7 +19,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Paintings",
+        artType: ArtType.Paintings,
         title: 'Image 2',
         description: 'Image description',
         images: ['/resources/images/paintings/image2_1.jpg', '/resources/images/paintings/image3_1.jpg'],
@@ -30,7 +31,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Paintings",
+        artType: ArtType.Paintings,
         title: 'Image 3',
         description: 'Image description',
         images: ['/resources/images/paintings/image3_1.jpg', '/resources/images/paintings/image3_1.jpg'],
@@ -42,7 +43,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Paintings",
+        artType: ArtType.Paintings,
         title: 'Image 4',
         description: 'Image description',
         images: ['/resources/images/paintings/image4_1.jpg', '/resources/images/paintings/image3_1.jpg'],
@@ -54,7 +55,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Paintings",
+        artType: ArtType.Paintings,
         title: 'Image 5',
         description: 'Image description',
         images: ['/resources/images/paintings/image5_1.jpg', '/resources/images/paintings/image3_1.jpg'],
@@ -66,7 +67,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Paintings",
+        artType: ArtType.Paintings,
         title: 'Image 6',
         description: 'Image description',
         images: ['/resources/images/paintings/image7_1.jpg', '/resources/images/paintings/image3_1.jpg'],
@@ -78,7 +79,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Paintings",
+        artType: ArtType.Paintings,
         title: 'Image 7',
         description: 'Image description',
         images: ['/resources/images/paintings/image3_1.jpg', '/resources/images/paintings/image3_1.jpg'],
@@ -90,7 +91,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Paintings",
+        artType: ArtType.Paintings,
         title: 'Image 8',
         description: 'Image description',
         images: ['/resources/images/paintings/image4_1.jpg', '/resources/images/paintings/image3_1.jpg'],
@@ -102,7 +103,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Paintings",
+        artType: ArtType.Paintings,
         title: 'Image 9',
         description: 'Image description',
         images: ['/resources/images/paintings/image5_1.jpg', '/resources/images/paintings/image3_1.jpg'],
@@ -114,7 +115,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Paintings",
+        artType: ArtType.Paintings,
         title: 'Image 10',
         description: 'Image description',
         images: ['/resources/images/paintings/image6_1.jpg', '/resources/images/paintings/image3_1.jpg'],
@@ -126,7 +127,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Paintings",
+        artType: ArtType.Paintings,
         title: 'Image 11',
         description: 'Image description',
         images: ['/resources/images/paintings/image7_1.jpg', '/resources/images/paintings/image3_1.jpg'],
@@ -138,7 +139,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Paintings",
+        artType: ArtType.Paintings,
         title: 'Image 12',
         description: 'Image description',
         images: ['/resources/images/paintings/image8_1.jpg', '/resources/images/paintings/image3_1.jpg'],
@@ -150,7 +151,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Photography",
+        artType: ArtType.Photography,
         title: 'Image 13',
         description: 'Image description',
         images: ['/resources/images/photography/photo1_1.jpg', '/resources/images/photography/photo6_1.jpg'],
@@ -162,7 +163,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Photography",
+        artType: ArtType.Photography,
         title: 'Image 14',
         description: 'Image description',
         images: ['/resources/images/photography/photo2_1.jpg', '/resources/images/photography/photo6_1.jpg'],
@@ -174,7 +175,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Photography",
+        artType: ArtType.Photography,
         title: 'Image 15',
         description: 'Image description',
         images: ['/resources/images/photography/photo3_1.jpg', '/resources/images/photography/photo6_1.jpg'],
@@ -186,7 +187,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Photography",
+        artType: ArtType.Photography,
         title: 'Image 16',
         description: 'Image description',
         images: ['/resources/images/decors/photo4_1.jpg', '/resources/images/photography/photo6_1.jpg'],
@@ -198,7 +199,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Photography",
+        artType: ArtType.Photography,
         title: 'Image 17',
         description: 'Image description',
         images: ['/resources/images/decors/photo5_1.jpg', '/resources/images/photography/photo6_1.jpg'],
@@ -210,7 +211,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Photography",
+        artType: ArtType.Photography,
         title: 'Image 18',
         description: 'Image description',
         images: ['/resources/images/decors/photo4_1.jpg', '/resources/images/photography/photo6_1.jpg'],
@@ -222,7 +223,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Photography",
+        artType: ArtType.Photography,
         title: 'Image 19',
         description: 'Image description',
         images: ['/resources/images/decors/photo5_1.jpg', '/resources/images/photography/photo6_1.jpg'],
@@ -234,7 +235,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Photography",
+        artType: ArtType.Photography,
         title: 'Image 20',
         description: 'Image description',
         images: ['/resources/images/photography/photo6_1.jpg', '/resources/images/photography/photo6_1.jpg'],
@@ -246,7 +247,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Photography",
+        artType: ArtType.Photography,
         title: 'Image 21',
         description: 'Image description',
         images: ['/resources/images/photography/photo7_1.jpg', '/resources/images/photography/photo6_1.jpg'],
@@ -258,7 +259,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Photography",
+        artType: ArtType.Photography,
         title: 'Image 22',
         description: 'Image description',
         images: ['/resources/images/photography/photo8_1.jpg', '/resources/images/photography/photo6_1.jpg'],
@@ -270,7 +271,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Photography",
+        artType: ArtType.Photography,
         title: 'Image 23',
         description: 'Image description',
         images: ['/resources/images/photography/photo9_1.jpg', '/resources/images/photography/photo6_1.jpg'],
@@ -282,7 +283,7 @@ export default [
         isSold: false,
     },
     {
-        artType: "Photography",
+        artType: ArtType.Photography,
         title: 'Image 24',
         description: 'Image description',
         images: ['/resources/images/photography/photo10_1.jpg', '/resources/images/photography/photo6_1.jpg'],

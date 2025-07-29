@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Funnel_Sans, Funnel_Display, Poppins, Cactus_Classical_Serif} from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./styles/globals.css";
 import Navbar from "./components/NavBar";
 import AuthProvider from "./auth/AuthProvider";
@@ -20,6 +20,11 @@ const fontMono = Poppins({
 export const metadata: Metadata = {
   title: "It Is Meaningful",
   description: "It Is Meaningful",
+  openGraph: {
+    title: "It Is Meaningful",
+    description: "It Is Meaningful",
+    tags: "itismeaningful, it is meaningful, paintings, photography, decors, sale"
+  }
 };
 
 export default function RootLayout({

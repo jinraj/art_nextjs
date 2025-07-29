@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, easeOut } from 'framer-motion';
 import { ArtWork } from '../interfaces/artwork';
 import PreviewArtworkPage from './PreviewArtwork';
 
@@ -22,7 +22,7 @@ export default function ImageCard({ listOfArtworks }: ImageCardProps) {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.5, ease: 'easeOut' },
+      transition: { duration: 0.5, ease: easeOut },
     },
   };
 
@@ -39,7 +39,7 @@ export default function ImageCard({ listOfArtworks }: ImageCardProps) {
           md:grid-cols-3
           lg:grid-cols-4
           xl:grid-cols-5
-          gap-4 `}>
+          gap-5 `}>
           {listOfArtworks.filter((img) => !img.isHidden).map((img, i) => (
             <motion.div
               key={img.id + i}

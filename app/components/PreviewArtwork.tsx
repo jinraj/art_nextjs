@@ -5,6 +5,7 @@ import { ArtWork } from '../interfaces/artwork';
 import { motion } from 'framer-motion';
 import { Heart, X } from 'lucide-react';
 import { useCallback } from 'react';
+import Image from 'next/image';
 
 interface PreviewArtworkPageProps {
   artwork: ArtWork;
@@ -113,11 +114,17 @@ export default function PreviewArtworkPage({ artwork, onClose }: PreviewArtworkP
       >
         <div id="art" className="w-full lg:w-[65%]">
           <div className="rounded-2xl overflow-hidden">
-            <img
-              src={selectedImage || null}
-              alt={artwork.title}
-              className="w-full max-h-[700px] object-contain"
-            />
+            {selectedImage && (
+              <div className="relative w-full max-h-[700px] aspect-[3/2] rounded-2xl overflow-hidden">
+                <Image
+                  src={selectedImage}
+                  alt={artwork.title}
+                  fill
+                  className="object-contain"
+                  sizes="100vw"
+                />
+              </div>
+            )}
           </div>
 
           {artwork.images.length > 1 && (
@@ -145,7 +152,7 @@ export default function PreviewArtworkPage({ artwork, onClose }: PreviewArtworkP
           <div className="space-y-2">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">{artwork.title}</h1>
             <p className="text-md text-gray-600 leading-relaxed">{artwork.description}</p>
-            
+
             <div>
               <span className="text-gray-800 font-medium text-sm px-2 py-1 rounded-2xl bg-gray-600 text-white">INR {artwork.price}.00</span>
             </div>

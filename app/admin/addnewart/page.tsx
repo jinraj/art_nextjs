@@ -30,15 +30,20 @@ const AdminPage = () => {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value, type, checked } = e.target;
-    console.log(`Field changed: ${e.target}`);
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
-  };
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+) => {
+  const { name, value, type } = e.target;
+
+  const fieldValue =
+    type === 'checkbox' && e.target instanceof HTMLInputElement
+      ? e.target.checked
+      : value;
+
+  setFormData(prev => ({
+    ...prev,
+    [name]: fieldValue,
+  }));
+};
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

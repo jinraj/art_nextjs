@@ -7,11 +7,11 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 interface CategoryCardProps {
-  listOfArtworks?: ArtWork[];
+  listOfArtworks: Pick<ArtWork, 'id' | 'title' | 'images'>[];
   maxColumns?: number;
 }
 
-export default function CategoryCard({ listOfArtworks, maxColumns = 6 }: CategoryCardProps) {
+export default function CategoryCard({ listOfArtworks }: CategoryCardProps) {
   const router = useRouter();
   if (!listOfArtworks || listOfArtworks.length === 0) {
     return <div className="text-center text-gray-500">No artworks available</div>;
@@ -26,7 +26,7 @@ export default function CategoryCard({ listOfArtworks, maxColumns = 6 }: Categor
           md:grid-cols-3
           lg:grid-cols-3
           xl:grid-cols-3
-          gap-4`}
+          gap-5`}
       >
         {/*  */}
         {listOfArtworks.map((img, i) => (

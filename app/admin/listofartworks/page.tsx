@@ -55,10 +55,16 @@ const ListofArtworks = () => {
   const handleEditChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    const { name, value, type, checked } = e.target;
-    const parsedValue = type === 'checkbox' ? checked : value;
+    const { name, value, type } = e.target;
+
+    const parsedValue =
+      type === 'checkbox' && e.target instanceof HTMLInputElement
+        ? e.target.checked
+        : value;
+
     setEditData((prev: any) => ({ ...prev, [name]: parsedValue }));
   };
+
 
   const handleEditSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

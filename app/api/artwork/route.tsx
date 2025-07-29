@@ -5,6 +5,7 @@ import path from "path";
 import { existsSync, mkdirSync } from "fs";
 import { writeFile } from "fs/promises";
 import { authenticateAdminRequest, authenticateRequest } from "@/app/auth/auth";
+import { ArtType } from "@prisma/client";
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,7 +13,7 @@ export async function GET(request: NextRequest) {
     // const authError = authenticateRequest(request);
     // if (authError) return authError;
 
-    const artworks = await prisma.ArtWork.findMany();
+    const artworks = await prisma.artWork.findMany();
     if (!artworks || artworks.length === 0) {
       return NextResponse.json({ message: "No artworks found" }, { status: 404 });
     }
@@ -31,7 +32,7 @@ export async function POST(request: NextRequest) {
 
     const formData = await request.formData();
     const images = formData.getAll('images') as File[];
-    const artType = formData.get('artType') as string;
+    const artType = formData.get('artType') as ArtType;
     const savedImagePaths = await saveImages(images, artType);
     const data = {
       artType: artType,
@@ -51,7 +52,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: validation.error.format() }, { status: 400 });
     }
 
-    const newArtwork = await prisma.ArtWork.create({ data });
+    const newArtwork = await prisma.artWork.create({ data });
 
     return NextResponse.json(newArtwork, { status: 201 });
   } catch (error) {
@@ -71,7 +72,7 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Artwork ID is required" }, { status: 400 });
     }
 
-    const deletedArtwork = await prisma.ArtWork.delete({
+    const deletedArtwork = await prisma.artWork.delete({
       where: { id },
     });
 
@@ -95,10 +96,13 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: validation.error.format() }, { status: 400 });
     }
 
-    const { id, ...data } = validation.data;
+    const { id, artType, ...rest } = validation.data;
     const updatedArtwork = await prisma.artWork.update({
       where: { id },
-      data,
+      data: {
+        ...rest,
+        ...(artType && { artType: artType as ArtType }) // ✅ Cast only if defined
+      }
     });
 
     return NextResponse.json(updatedArtwork, { status: 200 });

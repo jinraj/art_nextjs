@@ -5,7 +5,7 @@ import React from 'react';
 import CategoryCard from './components/CategoryCard';
 import TitleLayout from './components/TitleLayout';
 import CustomerFeedback from './components/CustomerFeedback';
-import { motion } from 'framer-motion';
+import { motion, easeOut } from 'framer-motion';
 import { artType, categories } from './constants/meta';
 import MaterialsSection from './components/MaterialsSection';
 
@@ -28,7 +28,7 @@ const sectionVariants = {
     y: 0,
     transition: {
       duration: 0.5,
-      ease: 'easeOut',
+      ease: easeOut,
       staggerChildren: 0.1,
     },
   },
@@ -36,19 +36,20 @@ const sectionVariants = {
 
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: easeOut } },
 };
 
 
 export default function Home() {
 
+  const randomQuote = artType.Home.quotes[Math.floor(Math.random() * artType.Home.quotes.length)];
   return (
     <div className=" text-gray-800"> 
       {/* 1. Hero Section */}
       <TitleLayout
         prefix="It is"
         title={artType.Home.name}
-        quote={artType.Home.quotes[Math.floor(Math.random() * artType.Home.quotes.length)]}
+        quote={randomQuote}
       />
 
       <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-300 to-transparent max-w-xl mx-auto"></div>
@@ -102,8 +103,8 @@ export default function Home() {
 
 
       {/* 7. Footer Placeholder */}
-      <div id='footer' className='py-20 bg-gray-800 text-white text-center'>
-        <p>&copy; {new Date().getFullYear()} Jinraj Jain. All rights reserved.</p>
+      <div id='footer' className='py-10 bg-gray-800 text-white text-center'>
+        <p>&copy; {new Date().getFullYear()} It Is Meaningful. All rights reserved.</p>
       </div>
     </div >
   );

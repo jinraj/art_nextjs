@@ -4,7 +4,7 @@ import artworks from '../app/constants/artworksData';
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.ArtWork.createMany({
+  await prisma.artWork.createMany({
     data: artworks
   });
 
