@@ -58,7 +58,6 @@ export default function ImageCard({ listOfArtworks }: ImageCardProps) {
                 className="h-60 w-45 sm:h-50 sm:w-38 md:h-70 md:w-50 lg:h-90 lg:w-70  flex items-center justify-center bg-gray-200 bg-cover bg-center rounded-2xl"
                 style={{ backgroundImage: `url('${img.images[0]}')` }}
               />
-              {/* <span className="mt-2 px-2 text-sm">{img.title}</span> */}
               <div className="mt-2 px-2 flex justify-between items-center text-sm">
                 <span className="text-gray-600 font-medium">{img.title}</span>
                 <span className="text-gray-400 font-medium">INR.{img.price}</span>
@@ -76,14 +75,14 @@ export default function ImageCard({ listOfArtworks }: ImageCardProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.5 }}
           >
             <motion.div
               className="relative bg-white rounded-2xl shadow-lg p-6 max-w-7xl w-full max-h-[90vh] overflow-y-auto"
               initial={{ scale: 0.9, y: 50 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 50 }}
-              transition={{ duration: 0.3, type: 'spring', damping: 25, stiffness: 200 }}
+              transition={{ duration: 0.5, type: 'spring', damping: 25, stiffness: 200 }}
             >
               <PreviewArtworkPage artwork={selectedArtwork} onClose={handleClosePreview} />
             </motion.div>

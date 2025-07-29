@@ -40,19 +40,19 @@ const Navbar: React.FC = () => {
 
       {/* Logo */}
       <div className="flex justify-center items-center">
-  <Link href="/">
-    <motion.img
-      src="/resources/images/wallpaper/imlogo1.png"
-      alt="Logo"
-      className="h-8 sm:h-12 w-8 sm:w-12 cursor-pointer"
-      initial={{ scale: 0.8, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-      whileHover={{ scale: 1.1, rotate: 2 }}
-      whileTap={{ scale: 0.9, rotate: -5 }}
-    />
-  </Link>
-</div>
+        <Link href="/">
+          <motion.img
+            src="/resources/images/wallpaper/imlogo1.png"
+            alt="Logo"
+            className="h-8 sm:h-12 w-8 sm:w-12 cursor-pointer"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+            whileHover={{ scale: 1.1, rotate: 2 }}
+            whileTap={{ scale: 0.9, rotate: -5 }}
+          />
+        </Link>
+      </div>
 
       {/* Right Nav */}
       <div className="flex-1 flex justify-evenly text-sm sm:text-sm">

@@ -6,7 +6,6 @@ import { FaEnvelope, FaMapMarkerAlt, FaInstagram } from 'react-icons/fa';
 import TitleLayout from '../components/TitleLayout';
 
 const About = () => {
-  // Framer Motion variants for staggered appearance
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -19,7 +18,7 @@ const About = () => {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
   };
 
   return (
@@ -34,32 +33,35 @@ const About = () => {
 
       {/* About Me Story Section */}
       <motion.section
-        className=" md:py-20 px-6 max-w-4xl mx-auto text-center"
+        className="py-8 md:py-10 px-6 max-w-4xl mx-auto text-center"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={containerVariants}
       >
-        <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl font-extrabold mb-8 leading-tight">
+        <motion.h2 variants={itemVariants} className="text-4xl md:text-4xl font-bold mb-8 leading-tight">
           My Journey & Philosophy
         </motion.h2>
-        <motion.p variants={itemVariants} className="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
+        <motion.p variants={itemVariants} className="text-md md:text-md text-gray-700 leading-relaxed mb-6">
           I believe art is a conversation, a bridge between the unseen and the tangible. My work spans from the tactile strokes of acrylic on canvas to the intricate dance of pixels in digital creations. Each piece is a reflection of my curiosity, my travels, and the stories I encounter.
         </motion.p>
-        <motion.p variants={itemVariants} className="text-lg md:text-xl text-gray-700 leading-relaxed">
+        <motion.p variants={itemVariants} className="text-md md:text-md text-gray-700 leading-relaxed">
           Driven by a desire to explore and innovate, I constantly seek new mediums and perspectives. Whether it's capturing a fleeting moment through a lens or building immersive digital experiences, my goal remains the same: to create something that resonates, inspires, and invites connection.
         </motion.p>
       </motion.section>
 
-      {/* What I Love / Expertise Section - UPDATED BACKGROUND AND TEXT COLORS */}
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-gray-300 to-transparent max-w-xl mx-auto"></div>
+
+
+      {/* What I Love */}
       <motion.section
-        className="py-20 mx-20 rounded-3xl md:py-28 px-6 bg-gray-800 text-white" // Background color and default text color set here
+        className="py-10 mx-5 my-15 md:mx-20 rounded-3xl md:py-15 px-6 bg-gray-800 text-white" // Background color and default text color set here
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={containerVariants}
       >
-        <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl font-extrabold text-center mb-16 leading-tight">
+        <motion.h2 variants={itemVariants} className="text-4xl md:text-4xl font-bold text-center mb-16 leading-tight">
           What Ignites My Passion
         </motion.h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -83,13 +85,13 @@ const About = () => {
             <motion.div
               key={idx}
               variants={itemVariants}
-              whileHover={{ y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.2)' }} // Adjusted shadow for dark background
+              whileHover={{ y: -5, boxShadow: '0 10px 20px rgba(0,0,0,0.2)' }}
               transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-              className="rounded-2xl p-8 text-left" // Card background & border adjusted for dark theme
+              className="rounded-2xl p-8 text-left"
             >
-              <div className="text-white mb-6">{skill.icon}</div> {/* Icon color adjusted for dark background */}
-              <h4 className="font-bold text-2xl mb-3 text-white">{skill.title}</h4> {/* Explicitly set text-white */}
-              <p className="text-gray-300 leading-relaxed">{skill.desc}</p> {/* Adjusted text for readability */}
+              <div className="text-white mb-6">{skill.icon}</div> 
+              <h4 className="font-bold text-2xl mb-3 text-white">{skill.title}</h4>
+              <p className="text-gray-300 text-md leading-relaxed">{skill.desc}</p> 
             </motion.div>
           ))}
         </div>
@@ -97,17 +99,16 @@ const About = () => {
 
       {/* Contact Section */}
       <motion.section
-        className="py-20 md:py-28 px-6"
+        className="py-5 md:py-10 px-6"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={containerVariants}
       >
-        <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl font-extrabold text-center mb-16 leading-tight">
+        <motion.h2 variants={itemVariants} className="text-4xl md:text-4xl font-bold text-center mb-16 leading-tight">
           Let’s Connect
         </motion.h2>
 
-        {/* Contact Details - More minimalist, less card-like */}
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mb-16">
           {[
             {
@@ -141,7 +142,7 @@ const About = () => {
             >
               <div className="text-gray-500 mb-4 transition-colors duration-200 group-hover:text-indigo-600">{card.icon}</div>
               <h4 className="font-semibold text-xl mb-1">{card.title}</h4>
-              <p className="text-gray-600 text-lg">{card.value}</p>
+              <p className="text-gray-600 text-md">{card.value}</p>
             </motion.a>
           ))}
         </div>

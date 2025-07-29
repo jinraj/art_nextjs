@@ -12,12 +12,12 @@ interface TitleLayoutProps {
 export default function TitleLayout({ prefix = "", title, quote }: TitleLayoutProps) {
 
   return (
-    <div className="py-8 pt-30 h-72 sm:h-96 bg-cover bg-center flex flex-col items-center justify-center text-center">
+    <div className="py-15 pt-30 md:py-20 md:pt-40 bg-cover bg-center flex flex-col items-center justify-center text-center">
       <motion.div
         id="title"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.5 }}
       >
         <span className="text-3xl sm:text-5xl italic text-gray-600 mr-2">{prefix} </span>
         <span className="text-5xl sm:text-7xl font-bold text-gray-900">{title}</span>
@@ -26,7 +26,7 @@ export default function TitleLayout({ prefix = "", title, quote }: TitleLayoutPr
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 1 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
       >
         <p className="mt-8 px-4 max-w-4xl text-lg sm:text-lg text-gray-500 font-normal italic">
           “{quote}”

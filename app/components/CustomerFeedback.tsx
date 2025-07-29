@@ -1,17 +1,15 @@
-// components/CustomerFeedbackSection.tsx
 'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
 
-// Define interface for a single feedback item
 interface Feedback {
   id: string;
   quote: string;
   author: string;
-  rating: number; // Rating for this specific feedback (optional, for individual display)
-  avatar?: string; // URL to author's avatar
+  rating: number;
+  avatar?: string; 
 }
 
 interface CustomerFeedbackSectionProps {
@@ -41,16 +39,15 @@ export default function CustomerFeedbackSection({ overallRating, totalReviews, f
     return stars;
   };
 
-  // Framer Motion variants
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 0.5,
         ease: 'easeOut',
-        when: 'beforeChildren', // Animate container before children
+        when: 'beforeChildren',
         staggerChildren: 0.2,
       },
     },
@@ -58,21 +55,20 @@ export default function CustomerFeedbackSection({ overallRating, totalReviews, f
 
   const itemVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
   };
 
   return (
     <motion.section
-      className=" bg-gray-800 py-16 md:py-24 px-4 sm:px-6 lg:px-8 rounded-2xl mx-10"
+      className=" bg-gray-800 py-15 md:py-15 px-5 sm:px-6 lg:px-8 rounded-2xl mx-10"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={sectionVariants}
     >
       <div className="max-w-6xl mx-auto">
-        {/* Overall Rating Display */}
         <motion.div variants={itemVariants} className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-100 mb-4">
+          <h2 className="py-5 text-4xl md:text-4xl font-bold text-gray-100 mb-4">
             Customer Love
           </h2>
           <div className="flex items-center justify-center space-x-3 mb-2">
@@ -84,7 +80,6 @@ export default function CustomerFeedbackSection({ overallRating, totalReviews, f
           <p className="text-gray-400 text-md">Based on {totalReviews} reviews</p>
         </motion.div>
 
-        {/* Customer Feedback Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {feedbacks.map((feedback) => (
             <motion.div
@@ -96,7 +91,6 @@ export default function CustomerFeedbackSection({ overallRating, totalReviews, f
             >
               <div>
                 <div className="flex text-lg mb-4">
-                    {/* Render individual feedback rating if available */}
                     {feedback.rating ? renderStars(feedback.rating, 'text-xl') : renderStars(5, 'text-xl')}
                 </div>
                 <p className="text-gray-700 text-sm leading-relaxed mb-6">

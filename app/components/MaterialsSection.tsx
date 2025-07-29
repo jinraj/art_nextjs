@@ -7,7 +7,7 @@ const sectionVariants = {
     visible: {
         opacity: 1,
         y: 0,
-        transition: { staggerChildren: 0.2, duration: 0.8 },
+        transition: { staggerChildren: 0.2, duration: 0.5 },
     },
 };
 
@@ -16,7 +16,7 @@ const itemVariants = {
     visible: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.6 },
+        transition: { duration: 0.5 },
     },
 };
 
@@ -25,15 +25,14 @@ export default function MaterialsSection() {
         <>
             <motion.h2
                 variants={itemVariants}
-                className="text-2xl text-center mt-10 mb-20 font-light"
+                className="text-2xl px-5 text-center mt-10 mb-20 font-light"
             >
                 From concept to execution, we exceeded expectations - innovative, professional, and truly brand-defining work!
             </motion.h2>
             <motion.section
-                className="mx-auto my-12 px-4 max-w-7xl flex flex-col md:flex-row items-center gap-8"
+                className="mx-auto my-12 px-5 sm:px-6 lg:px-10 max-w-7xl flex flex-col md:flex-row items-center gap-8"
                 initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
+                animate="visible"
                 variants={sectionVariants}
             >
                 <motion.div
@@ -49,7 +48,7 @@ export default function MaterialsSection() {
                     variants={itemVariants}
                     className="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-start items-start text-left"
                 >
-                    <h3 className="text-2xl md:text-3xl font-bold mb-4">Crafting Stories with Light and Texture</h3>
+                    <h3 className="text-4xl md:text-4xl font-bold mb-4">Crafting Stories with Light and Texture</h3>
                     <p className="text-md md:text-md text-gray-700 leading-relaxed">
                         Every photograph is a curated moment, a play of light and shadow designed to evoke emotion.
                         We meticulously select high-quality materials, from rich fabrics that provide depth and softness
@@ -57,10 +56,6 @@ export default function MaterialsSection() {
                         where bespoke frames are chosen to complement each piece, transforming a simple image into a captivating visual experience.
                         It's about bringing together the art of photography with the tactile beauty of decor to create truly immersive visual narratives for your space.
                     </p>
-                    {/* Optional: Add a button or link here */}
-                    {/* <button className="mt-6 bg-indigo-600 text-white px-6 py-3 rounded-full hover:bg-indigo-700 transition">
-            Learn About Our Process
-        </button> */}
                 </motion.div>
             </motion.section>
         </>
