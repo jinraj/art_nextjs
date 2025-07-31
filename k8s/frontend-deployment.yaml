@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nextjs-frontend
-        image: iimacr.azurecr.io/iim-docker-image-nextjs:v1 # IMPORTANT: Use your ACR name and image tag
+        image: iimacr.azurecr.io/iim-docker-image-nextjs:v5 # IMPORTANT: Use your ACR name and image tag
         ports:
         - containerPort: 3000 # Next.js default port
         env:
@@ -27,6 +27,8 @@ spec:
           value: "http://nodejs-backend-service:5000" # Internal cluster DNS for the backend service
           # Add any other environment variables your Next.js frontend needs
           # E.g., for production, you might set a specific hostname for the frontend
+        - name: NEXTAUTH_URL
+          value: "http://172.214.16.200"
         - name: NODE_ENV
           value: "production"
 ---

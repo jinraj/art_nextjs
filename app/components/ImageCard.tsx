@@ -4,6 +4,7 @@ import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence, easeOut } from 'framer-motion';
 import { ArtWork } from '../interfaces/artwork';
 import PreviewArtworkPage from './PreviewArtwork';
+import Image from 'next/image';
 
 interface ImageCardProps {
   listOfArtworks?: ArtWork[];
@@ -54,14 +55,19 @@ export default function ImageCard({ listOfArtworks }: ImageCardProps) {
               whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 200, damping: 20 }}
             >
-              <div
-                className="h-60 w-45 sm:h-50 sm:w-38 md:h-70 md:w-50 lg:h-90 lg:w-70  flex items-center justify-center bg-gray-200 bg-cover bg-center rounded-2xl"
-                style={{ backgroundImage: `url('${img.images[0]}')` }}
-              />
+              <div className="relative h-60 w-45 sm:h-50 sm:w-38 md:h-70 md:w-50 lg:h-90 lg:w-70 rounded-2xl overflow-hidden bg-gray-200">
+                <Image
+                  src={img.images[0]}
+                  alt="Artwork"
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <div className="mt-2 px-2 flex justify-between items-center text-sm">
                 <span className="text-gray-600 font-medium">{img.title}</span>
                 <span className="text-gray-400 font-medium">INR.{img.price}</span>
               </div>
+
             </motion.div>
           ))}
         </div>

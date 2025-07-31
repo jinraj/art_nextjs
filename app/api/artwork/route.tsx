@@ -113,21 +113,23 @@ export async function PUT(request: NextRequest) {
 }
 
 async function saveImages(images: File[], artType: string) {
-  const uploadDir = path.join(process.cwd(), "public", "resources", "images", artType.toLowerCase());
+  const uploadDir = path.join(process.cwd(), "public", "resources", "artworks");
   if (!existsSync(uploadDir)) {
     mkdirSync(uploadDir, { recursive: true });
   }
   const savedImagePaths: string[] = [];
 
   for (const image of images) {
-    if (image.name !== "") {
-      console.log(`Saving image: ${image.name}`);
-      const fnPrefix = image.name.slice(0, 5);
-      const fileName = `${artType.toLowerCase()}-${Date.now()}-${fnPrefix}`;
-      const filePath = path.join(uploadDir, fileName);
-      await writeFile(filePath, Buffer.from(await image.arrayBuffer()));
-      savedImagePaths.push(`/resources/images/${artType.toLowerCase()}/${fileName}`);
-    }
+  if (image.name !== "") {
+    console.log(`Saving image: ${image.name}`);
+    const fnPrefix = image.name.slice(0, 5).replace(/[^a-z0-9]/gi, '_');
+    const fileName = `${artType}-${Date.now()}-${fnPrefix}${path.extname(image.name)}`;
+    const filePath = path.join(uploadDir, fileName);
+
+    await writeFile(filePath, Buffer.from(await image.arrayBuffer()));
+    console.log("filePath", filePath);
+    savedImagePaths.push(`/resources/artworks/${fileName}`);
   }
+}
   return savedImagePaths;
 }

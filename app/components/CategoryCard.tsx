@@ -40,17 +40,17 @@ export default function CategoryCard({ listOfArtworks }: CategoryCardProps) {
           >
             <div className="p-1 bg-gray-100 rounded-2xl shadow-lg relative" >
               <div className="p-2 bg-gray-50 rounded-2xl relative">
-            <div className="rounded-2xl shadow-lg overflow-hidden w-[280px] h-[400px]">
-              <Image
-                src={img.images[0]}
-                alt={img.title}
-                width={280}
-                height={400}
-                className="object-cover w-full h-full"
-                priority={i < 6}
-              />
-            </div>
-            </div>
+                <div className="rounded-2xl shadow-lg overflow-hidden w-[280px] h-[400px]">
+                  <Image
+                    src={img.images[0]}
+                    alt={img.title}
+                    width={280}
+                    height={400}
+                    className="object-cover w-full h-full"
+                    priority={i < 6}
+                  />
+                </div>
+              </div>
             </div>
             <span className="mt-2 text-center font-semibold text-gray-800 text-base leading-tight line-clamp-2">
               {img.title}

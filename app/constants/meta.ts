@@ -58,16 +58,16 @@ export const categories = [
   {
     id: '1',
     title: artType.Paintings.name,
-    images: ['/resources/images/paintings/image2_1.jpg'],
+    images: ['/resources/artworks/image2_1.jpg'],
   },
   {
     id: '2',
     title: artType.Photography.name,
-    images: ['/resources/images/photography/photo1_1.jpg'],
+    images: ['/resources/artworks/photo1_1.jpg'],
   },
   {
     id: '3',
     title: artType.Decors.name,
-    images: ['/resources/images/decors/photo5_1.jpg'],
+    images: ['/resources/artworks/photo5_1.jpg'],
   }
 ];

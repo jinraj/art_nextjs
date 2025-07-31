@@ -39,7 +39,7 @@ export default function MaterialsSection() {
                     variants={itemVariants}
                     className="w-full md:w-1/2 h-90 md:h-120 bg-cover bg-center"
                     style={{
-                        backgroundImage: `url('/resources/images/application/pexels2.jpg')`,
+                        backgroundImage: `url('/resources/application/pexels2.jpg')`,
                     }}
                 >
                 </motion.div>

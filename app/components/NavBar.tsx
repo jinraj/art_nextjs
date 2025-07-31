@@ -42,7 +42,7 @@ const Navbar: React.FC = () => {
       <div className="flex justify-center items-center">
         <Link href="/">
           <motion.img
-            src="/resources/images/wallpaper/imlogo1.png"
+            src="/resources/application/imlogo1.png"
             alt="Logo"
             className="h-8 sm:h-12 w-8 sm:w-12 cursor-pointer"
             initial={{ scale: 0.8, opacity: 0 }}
